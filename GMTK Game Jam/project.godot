@@ -11,7 +11,15 @@ config_version=4
 [application]
 
 config/name="Team IT GMTK game jam project"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1280
+window/size/height=720
+window/size/test_width=1280
+window/size/test_height=720
 
 [importer_defaults]
 
