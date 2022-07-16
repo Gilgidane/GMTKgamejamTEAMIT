@@ -14,7 +14,7 @@ func _ready():
 	#var enemy_level = rng.randf_range(1,5)
 	
 func _physics_process(delta):
-	if is_attacking and count != 100:
+	if is_attacking and count != 80:
 		count += 1
 		return
 		
