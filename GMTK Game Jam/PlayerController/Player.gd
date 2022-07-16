@@ -17,6 +17,7 @@ enum{
 
 var velocity = Vector2.ZERO
 var state = MOVE
+var stats = PlayerStats
 
 func _physics_process(delta):
 	# physics process executes on each computer tick - bound to framerate
