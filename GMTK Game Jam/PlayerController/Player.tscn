@@ -1,11 +1,14 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://PlayerController/DiceBoy.png" type="Texture" id=1]
 [ext_resource path="res://PlayerController/Player.gd" type="Script" id=2]
 [ext_resource path="res://UI/PauseMenu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Hitboxes and Hurtboxes/Hurtbox.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Main/Arrow.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 4.0
+radius = 3.99997
+height = 24.0001
 
 [sub_resource type="Animation" id=4]
 resource_name = "AttackLeft"
@@ -175,10 +178,15 @@ graph_offset = Vector2( -26, -88 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=13]
 
+[sub_resource type="CapsuleShape2D" id=21]
+radius = 8.0
+height = 10.0
+
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 2
 script = ExtResource( 2 )
 jump_speed = -600
+arrow = ExtResource( 5 )
 
 [node name="PauseMenu" parent="." instance=ExtResource( 3 )]
 margin_left = 0.0
@@ -194,7 +202,7 @@ hframes = 4
 frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -4 )
+position = Vector2( 1, -5 )
 rotation = 1.5708
 shape = SubResource( 1 )
 
@@ -222,3 +230,12 @@ limit_left = 0
 limit_top = 0
 smoothing_enabled = true
 smoothing_speed = 6.0
+
+[node name="Hurtbox" parent="." instance=ExtResource( 4 )]
+visible = false
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 0, -22 )
+shape = SubResource( 21 )
+
+[editable path="Hurtbox"]

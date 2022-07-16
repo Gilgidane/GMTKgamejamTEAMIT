@@ -5,6 +5,7 @@ const Exit = preload("res://Main/ExitDoor.tscn")
 var borders = Rect2(1, 1, 142, 78)
 
 onready var tileMap = $TileMap
+onready var player = $Player
 
 func _ready():
 	randomize()
@@ -14,8 +15,6 @@ func generate_level():
 	var walker = Walker.new(Vector2(40, 12), borders)
 	var map = walker.walk(randi() % 1200 + 100)
 	
-	var player = Player.instance()
-	add_child(player)
 	player.position = map.front()*32
 	
 	var exit = Exit.instance()
