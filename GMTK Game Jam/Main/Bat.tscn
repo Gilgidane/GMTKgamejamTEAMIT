@@ -6,7 +6,7 @@
 [ext_resource path="res://Main/PlayerDetectionZone.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=9]
-radius = 114.004
+radius = 223.182
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -58,7 +58,7 @@ shape = SubResource( 9 )
 position = Vector2( 0, -16 )
 frames = SubResource( 6 )
 animation = "New Anim"
-frame = 4
+frame = 1
 speed_scale = 2.0
 playing = true
 

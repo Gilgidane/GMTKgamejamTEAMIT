@@ -1,6 +1,6 @@
 extends Area2D
 
-export(PackedScene) var TargetScene
+export (PackedScene) var TargetScene
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
