@@ -1,51 +1,21 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://PlayerController/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/Ground.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Camera2D.gd" type="Script" id=3]
-[ext_resource path="res://Enemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://BounceyBox.tscn" type="PackedScene" id=5]
-[ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Main/Door.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node2D"]
-position = Vector2( -9, -18 )
-rotation = -0.0118189
+
+[node name="Door" parent="." instance=ExtResource( 4 )]
+position = Vector2( 760, 640 )
+
+[node name="Door2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 566, 640 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 273.915, 347.262 )
-jump_speed = -700
-
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
-remote_path = NodePath("../../Camera2D")
+position = Vector2( 402, 639 )
+gravity = 1500
 
 [node name="Ground" parent="." instance=ExtResource( 2 )]
-position = Vector2( 2, 596 )
-tile_data = PoolIntArray( -327680, 0, 0, -327679, 0, 0, -327672, 0, 0, -327671, 0, 0, -262144, 0, 0, -262143, 0, 0, -262142, 0, 0, -262137, 0, 0, -262136, 0, 0, -262135, 0, 0, -262134, 0, 0, -262133, 0, 0, -196608, 0, 0, -196607, 0, 0, -196606, 0, 0, -196602, 0, 0, -196601, 0, 0, -196600, 0, 0, -196597, 0, 0, -196596, 0, 0, -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -131069, 0, 0, -131068, 0, 0, -131067, 0, 0, -131066, 0, 0, -131060, 0, 0, -131059, 0, 0, -131058, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -65513, 0, 0, -65512, 0, 0, -65511, 0, 0, -65510, 0, 0, -65509, 0, 0, -65508, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 22, 0, 0, 23, 0, 0, 24, 0, 0, 25, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 65554, 0, 0, 65555, 0, 0, 65556, 0, 0, 65557, 0, 0, 65558, 0, 0, 65559, 0, 0, 65560, 0, 0, 65561, 0, 0, 65562, 0, 0, 65563, 0, 0, 65564, 0, 0, 65565, 0, 0, 65566, 0, 0, 131091, 0, 0, 131092, 0, 0, 131093, 0, 0, 131094, 0, 0, 131095, 0, 0, 131096, 0, 0, 131097, 0, 0, 131098, 0, 0, 131099, 0, 0, 131100, 0, 0, 131101, 0, 0, 131102, 0, 0, 131103, 0, 0 )
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 273.915, 347.262 )
-rotation = 0.0202299
-current = true
-process_mode = 0
-smoothing_enabled = true
-script = ExtResource( 3 )
-
-[node name="Enemy" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1699.49, 476.119 )
-
-[node name="BounceyBox" parent="." instance=ExtResource( 5 )]
-position = Vector2( 546.196, 240.472 )
-
-[node name="BounceyBox2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 614.168, 243.276 )
-
-[node name="BounceyBox3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 579.997, 172.867 )
-
-[node name="BounceyBox4" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1804.33, 490.359 )
-
-[node name="BounceyBox5" parent="." instance=ExtResource( 5 )]
-position = Vector2( 2022, 688.945 )
-
-[node name="GUI" parent="." instance=ExtResource( 6 )]
+position = Vector2( -1, 0 )
+tile_data = PoolIntArray( 720895, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655376, 0, 0, 655377, 0, 0, 655378, 0, 0, 655379, 0, 0, 655380, 0, 0, 786431, 0, 0, 720896, 0, 0, 720897, 0, 0, 720898, 0, 0, 720899, 0, 0, 720900, 0, 0, 720901, 0, 0, 720902, 0, 0, 720903, 0, 0, 720904, 0, 0, 720905, 0, 0, 720906, 0, 0, 720907, 0, 0, 720908, 0, 0, 720909, 0, 0, 720910, 0, 0, 720911, 0, 0, 720912, 0, 0, 720913, 0, 0, 720914, 0, 0, 720915, 0, 0, 720916, 0, 0 )

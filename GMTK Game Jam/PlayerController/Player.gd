@@ -52,7 +52,8 @@ func move_state(delta):
 			velocity.y = jump_speed
 		
 	if Input.is_action_just_pressed("attack"):
-		state = ATTACK
+		if is_on_floor():
+			state = ATTACK
 
 func attack_state():
 	animationState.travel("Attack")

@@ -3,6 +3,9 @@
 [ext_resource path="res://PlayerController/DiceBoy.png" type="Texture" id=1]
 [ext_resource path="res://PlayerController/Player.gd" type="Script" id=2]
 
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 4.0
+
 [sub_resource type="Animation" id=4]
 resource_name = "AttackLeft"
 length = 0.25
@@ -167,15 +170,14 @@ states/Idle/node = SubResource( 11 )
 states/Idle/position = Vector2( 470, 77 )
 transitions = [ "Idle", "Attack", SubResource( 15 ), "Attack", "Idle", SubResource( 16 ) ]
 start_node = "Idle"
+graph_offset = Vector2( -26, -88 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=13]
 
-[sub_resource type="RectangleShape2D" id=21]
-extents = Vector2( 20.357, 16.9962 )
-
 [node name="Player" type="KinematicBody2D"]
-rotation = 0.0202299
+collision_mask = 2
 script = ExtResource( 2 )
+jump_speed = -600
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, 6 )
@@ -183,6 +185,11 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -32 )
 hframes = 4
 frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -4 )
+rotation = 1.5708
+shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/AttackLeft = SubResource( 4 )
@@ -197,9 +204,14 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 13 )
 parameters/Attack/blend_position = Vector2( 0, 0 )
-parameters/Idle/blend_position = Vector2( -0.568323, 0.37069 )
+parameters/Idle/blend_position = Vector2( 0.718944, 0.510448 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.554075, -21.3562 )
-rotation = 1.57185
-shape = SubResource( 21 )
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, -70 )
+current = true
+zoom = Vector2( 1.2, 1.2 )
+process_mode = 0
+limit_left = 0
+limit_top = 0
+smoothing_enabled = true
+smoothing_speed = 6.0
