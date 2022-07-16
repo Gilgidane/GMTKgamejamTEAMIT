@@ -40,7 +40,6 @@ animation = "walk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 6.67572e-06, -3.8147e-06 )
 rotation = 9.31322e-10
-scale = Vector2( 1, 1 )
 shape = SubResource( 1 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -54,7 +53,6 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
 position = Vector2( -45.3902, -1.33459 )
 rotation = 2.79397e-09
-scale = Vector2( 1, 1 )
 shape = SubResource( 2 )
 
 [node name="HitDetector" type="Area2D" parent="."]
@@ -66,7 +64,6 @@ monitorable = false
 modulate = Color( 0.741176, 0.203922, 0.203922, 1 )
 position = Vector2( 4.47012, 0.614655 )
 rotation = 2.79397e-09
-scale = Vector2( 1, 1 )
 shape = SubResource( 3 )
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
