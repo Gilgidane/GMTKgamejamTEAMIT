@@ -1,0 +1,102 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Hitboxes and Hurtboxes/Hurtbox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Main/Slime.gd" type="Script" id=2]
+[ext_resource path="res://Resources/Sprites/Slime.png" type="Texture" id=3]
+[ext_resource path="res://Main/PlayerDetectionZone.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Hitboxes and Hurtboxes/Hitbox.tscn" type="PackedScene" id=5]
+[ext_resource path="res://HealthBar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Resources/light.png" type="Texture" id=7]
+
+[sub_resource type="CircleShape2D" id=9]
+radius = 245.051
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "New Anim",
+"speed": 4.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 1.99996
+height = 24.0001
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 6.0
+height = 4.0
+
+[sub_resource type="CircleShape2D" id=10]
+radius = 8.544
+
+[node name="Slime" type="KinematicBody2D"]
+collision_layer = 12
+collision_mask = 17
+script = ExtResource( 2 )
+
+[node name="PlayerDetectionZone" parent="." instance=ExtResource( 4 )]
+visible = false
+
+[node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
+position = Vector2( 0, -14 )
+shape = SubResource( 9 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -16 )
+frames = SubResource( 6 )
+animation = "New Anim"
+frame = 3
+speed_scale = 2.0
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -2 )
+rotation = 1.5708
+shape = SubResource( 7 )
+
+[node name="Hurtbox" parent="." instance=ExtResource( 1 )]
+visible = false
+collision_layer = 8
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2( 0, -15 )
+shape = SubResource( 8 )
+
+[node name="Hitbox" parent="." instance=ExtResource( 5 )]
+collision_mask = 32
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2( -1, -7 )
+shape = SubResource( 10 )
+
+[node name="HealthBar" parent="." instance=ExtResource( 6 )]
+position = Vector2( -1, -24 )
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( -1, -5 )
+scale = Vector2( 0.441406, 0.480469 )
+texture = ExtResource( 7 )
+texture_scale = 0.1
+energy = 0.5
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+
+[editable path="PlayerDetectionZone"]
+[editable path="Hurtbox"]
+[editable path="Hitbox"]
