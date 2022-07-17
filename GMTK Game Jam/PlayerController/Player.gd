@@ -6,10 +6,10 @@ export (int) var jump_speed = -500
 export (int) var gravity = 2000
 export var friction = 0.2
 export var acceleration = 0.25
-export (PackedScene) var arrow
 
 enum {
-	MOVE
+	MOVE,
+	ATTACK
 }
 
 #animations
@@ -17,6 +17,7 @@ onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
 #hitboxes and hurtboxes
 onready var hurtbox = $Hurtbox
+onready var hitbox = $Hitbox
 
 var velocity = Vector2.ZERO
 var stats = PlayerStats
@@ -24,13 +25,28 @@ var state = MOVE
 
 func _ready():
 	animationTree.active = true
+	hitbox.monitoring = false
 	stats.connect("no_health", self, "queue_free")
 
 func _physics_process(delta):
 	facing()
 	match state:
 		MOVE:
-			pass
+			move_state()
+		ATTACK:
+			hitbox.monitoring = true
+			hurtbox.monitoring = false
+			attack()
+		
+	velocity.y += gravity * delta
+	velocity = move_and_slide(velocity, Vector2.UP)
+	if Input.is_action_just_pressed("attack"):
+		if is_on_floor():
+			velocity.y = velocity.y - 250
+		state = ATTACK
+		#animationState.travel("Attack")
+
+func move_state():
 	var dir = 0
 	if Input.is_action_pressed("ui_right"):
 		dir += 1
@@ -46,25 +62,20 @@ func _physics_process(delta):
 		velocity.x = lerp(velocity.x, 0, friction)
 		if is_on_floor():
 			animationState.travel("Idle")
-		else:
-			animationState.travel("Jump")
-	
-	velocity.y += gravity * delta
-	velocity = move_and_slide(velocity, Vector2.UP)
-	
+		
 	if Input.is_action_pressed("jump"):
 		animationState.travel("Jump")
 		if is_on_floor():
 			velocity.y = jump_speed
-		
-	if Input.is_action_just_pressed("attack"):
-		attack()
-		#animationState.travel("Attack")
+
 
 func attack():
-	var b = arrow.instance()
-	owner.add_child(b)
-	b.transform = $Origin.global_transform
+	animationState.travel("AttackAir")
+	if !is_on_floor():
+		velocity.y = velocity.y-10
+	if is_on_floor():
+		animationState.travel("AttackLand")
+		velocity.x = lerp(velocity.x, 0, friction/25)
 
 func facing():
 	var mousePos = get_global_mouse_position()
@@ -81,10 +92,9 @@ func facing():
 	animationTree.set("parameters/Attack/blend_position", facing)
 	animationTree.set("parameters/Jump/blend_position", facing)
 
-func attack_animation_finished():
-	pass
-	#animationState.travel("Idle")
-
+func roll_finished():
+	hurtbox.monitoring = true
+	state = MOVE
 
 func _on_Hurtbox_area_entered(area):
 	print ("ouch!")

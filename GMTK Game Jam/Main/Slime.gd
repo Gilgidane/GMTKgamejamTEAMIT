@@ -3,7 +3,7 @@ extends KinematicBody2D
 export var ACCELERATION = 300
 export var MAX_SPEED = 50
 export var FRICTION = 200
-export var GRAVITY = 2000
+export var GRAVITY = 5000
 
 enum{
 	IDLE,
@@ -20,7 +20,7 @@ onready var sprite = $AnimatedSprite
 func _physics_process(delta):
 	match state:
 		IDLE:
-			velocity.x = lerp(velocity.x, 0, FRICTION)
+			velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 			seek_player()
 		WANDER:
 			pass
