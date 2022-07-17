@@ -1,5 +1,6 @@
 extends Node2D
 
+const Next_Level = preload("res://Main/Mountain.tscn")
 const Exit = preload("res://Main/ExitDoor.tscn")
 const Bat = preload("res://Main/Bat.tscn")
 const Slime = preload("res://Main/Slime.tscn")
@@ -9,6 +10,7 @@ const Chest = preload("res://Main/LootChest.tscn")
 
 var borders = Rect2(1, 1, 700, 500) #potential generation size
 var roomStore = []
+var stats = PlayerStats
 
 onready var tileMap = $TileMap
 onready var player = $Player
@@ -16,8 +18,11 @@ onready var player = $Player
 func _ready():
 	randomize()
 	generate_level()
-	
+	print(stats.level_count)
+
+
 func _physics_process(delta):
+
 	if Input.is_action_pressed("reroll"):
 		reroll()
 
@@ -25,13 +30,10 @@ func generate_level():
 	var walker = Walker.new(Vector2(40, 12), borders) #create walker, set start position
 	var map = walker.walk(randi() % 700 + 100)
 	player.position = map.front()*32
-	
 	var exit = Exit.instance() #create the exit
 	add_child(exit)
 	exit.position = walker.get_end_room().position*32
 	exit.collision_mask = 1
-	var level_count = 0
-	var level_req = randi() % 5 + 1
 	exit.connect("leaving_level", self, "update_level_count")
 	roomStore = walker.rooms #store the room array here
 	walker.queue_free() #kill the walker
@@ -74,13 +76,16 @@ func generate_level():
 			pass
 		current_room = current_room + 1
 
-func update_level_count(level_count, level_req):
-	level_count = level_count + 1
-	print(level_count, level_req)
-	if level_count != level_req: 
-		get_tree().reload_current_scene()
+func update_level_count():
+	stats.level_count += 1
+	if stats.level_count >= 3:
+		stats.level_count = 0
+		get_tree().change_scene_to(Next_Level)
 	else:
-		pass
+		get_tree().reload_current_scene()
 
+
+func change_level():
+	pass
 func reroll():
 	get_tree().reload_current_scene()

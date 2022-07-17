@@ -30,9 +30,7 @@ func generate_level():
 	add_child(exit)
 	exit.position = walker.get_end_room().position*32
 	exit.collision_mask = 1
-	var level_count = 0
-	var level_req = randi() % 5 + 1
-	exit.connect("leaving_level", self, "update_level_count")
+	exit.connect("leaving_level", self, "reload_level")
 	roomStore = walker.rooms #store the room array here
 	walker.queue_free() #kill the walker
 	
@@ -74,13 +72,8 @@ func generate_level():
 			pass
 		current_room = current_room + 1
 
-func update_level_count(level_count, level_req):
-	level_count = level_count + 1
-	print(level_count, level_req)
-	if level_count != level_req: 
-		get_tree().reload_current_scene()
-	else:
-		pass
+func reload_level():
+	get_tree().reload_current_scene()
 
 func reroll():
 	get_tree().reload_current_scene()

@@ -60,6 +60,8 @@ damping_curve = SubResource( 18 )
 scale_curve = SubResource( 16 )
 
 [node name="Torch" type="KinematicBody2D"]
+collision_layer = 16
+collision_mask = 17
 script = ExtResource( 4 )
 
 [node name="Torch" type="AnimatedSprite" parent="."]

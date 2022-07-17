@@ -30,6 +30,7 @@ animations = [ {
 extents = Vector2( 48, 24 )
 
 [node name="LootChest" type="KinematicBody2D"]
+collision_layer = 16
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 export(PackedScene) var object_scene = null
-
+const GRAVITY = 1000
 const COIN = preload("res://Main/Coin.tscn")
 const HEART = preload("res://HeartPickup.tscn")
 const BAT = preload("res://Main/Bat.tscn")
@@ -10,13 +10,15 @@ onready var chest = self
 var is_player_overlap: bool = false
 var is_opened: bool = false
 var rng = RandomNumberGenerator.new()
+var velocity = Vector2.ZERO
 
 func _ready() -> void:
 	$AnimatedSprite.play("idle")
 	
 func _physics_process(delta):
-	pass
-	
+	velocity.y += GRAVITY * delta
+	velocity = move_and_slide(velocity, Vector2.UP)
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept") and is_player_overlap and not is_opened:
 		open_chest()
