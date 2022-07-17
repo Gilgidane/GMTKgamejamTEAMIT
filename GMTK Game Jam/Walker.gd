@@ -1,7 +1,8 @@
 extends Node
 class_name Walker
 
-const DIRECTIONS = [Vector2.LEFT/3, Vector2.RIGHT, Vector2.UP/4, Vector2.DOWN/2.5, Vector2.LEFT, Vector2.RIGHT]
+const Enemy = preload("res://Main/Bat.tscn")
+const DIRECTIONS = [Vector2.LEFT/3, Vector2.RIGHT, Vector2.UP/50, Vector2.DOWN/10]
 
 var position = Vector2.ZERO
 var direction = Vector2.RIGHT
@@ -21,7 +22,6 @@ func walk(steps):
 	for step in steps:
 		if randf() <= 0.25 or steps_since_turn >= 6:
 			change_direction()
-		
 		if step():
 			step_history.append(position)
 		else:
@@ -49,6 +49,7 @@ func change_direction():
 
 func create_room(position, size):
 	return {position = position, size = size}
+
 
 func place_room(position):
 	var size = Vector2(randi() % 8 + 2, randi() % 3 + 2)
