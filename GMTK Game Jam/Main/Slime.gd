@@ -17,6 +17,9 @@ var state = IDLE
 onready var playerDetectionZone = $PlayerDetectionZone
 onready var sprite = $AnimatedSprite
 
+func _ready():
+	$HealthBar.scale = Vector2(0.08, 0.05)
+
 func _physics_process(delta):
 	match state:
 		IDLE:

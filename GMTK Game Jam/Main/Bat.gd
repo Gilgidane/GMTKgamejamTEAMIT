@@ -1,8 +1,12 @@
 extends KinematicBody2D
 
+const HP_BAR = preload("res://HealthBar.tscn")
+onready var bat_instance = self
+
 export var ACCELERATION = 300
 export var MAX_SPEED = 50
 export var FRICTION = 200
+var max_health = 10
 
 enum{
 	IDLE,
@@ -15,6 +19,10 @@ var state = IDLE
 
 onready var playerDetectionZone = $PlayerDetectionZone
 onready var sprite = $AnimatedSprite
+
+func _ready():
+	$HealthBar.scale = Vector2(0.05, 0.05)
+	#$HealthBar.position = Vector2(bat_instance.position[0], bat_instance.position[1])
 
 func _physics_process(delta):
 	match state:
