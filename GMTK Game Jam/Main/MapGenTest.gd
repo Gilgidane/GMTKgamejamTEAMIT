@@ -4,6 +4,7 @@ const Exit = preload("res://Main/ExitDoor.tscn")
 const Bat = preload("res://Main/Bat.tscn")
 const Slime = preload("res://Main/Slime.tscn")
 const GroundSpike = preload("res://Main/Spikes.tscn")
+const Torch = preload("res://Resources/Torch.tscn")
 
 var borders = Rect2(1, 1, 700, 500) #potential generation size
 var roomStore = []
@@ -56,6 +57,11 @@ func generate_level():
 				add_child(groundSpike)
 				groundSpike.position.x = roomStore[current_room].position.x*32
 				groundSpike.position.y = roomStore[current_room].position.y*32
+			elif chance <= 50:
+				var torch = Torch.instance()
+				add_child(torch)
+				torch.position.x = roomStore[current_room].position.x*32
+				torch.position.y = roomStore[current_room].position.y*32 
 		else:
 			pass
 		current_room = current_room + 1

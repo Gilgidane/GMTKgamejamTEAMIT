@@ -3,9 +3,9 @@ extends KinematicBody2D
 export var ACCELERATION = 300
 export var MAX_SPEED = 50
 export var FRICTION = 200
-export var GRAVITY = 2000
 var max_health = 20
 var current_health = 20
+export var GRAVITY = 5000
 
 enum{
 	IDLE,
@@ -25,7 +25,7 @@ func _ready():
 func _physics_process(delta):
 	match state:
 		IDLE:
-			velocity.x = lerp(velocity.x, 0, FRICTION)
+			velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 			seek_player()
 		WANDER:
 			pass
@@ -45,7 +45,7 @@ func seek_player():
 		state = CHASE
 
 func _on_Hurtbox_area_entered(area):
-	current_health -= 1
+	current_health -= 5
 	$HealthBar.update_healthbar(current_health)
 	if current_health <= 0:
 		queue_free()

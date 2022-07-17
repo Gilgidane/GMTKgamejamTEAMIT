@@ -5,7 +5,9 @@
 [ext_resource path="res://Main/Bat.gd" type="Script" id=3]
 [ext_resource path="res://Main/PlayerDetectionZone.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Hitboxes and Hurtboxes/Hitbox.tscn" type="PackedScene" id=5]
+
 [ext_resource path="res://HealthBar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Resources/light.png" type="Texture" id=7]
 
 [sub_resource type="CircleShape2D" id=9]
 radius = 245.051
@@ -89,6 +91,10 @@ shape = SubResource( 10 )
 
 [node name="HealthBar" parent="." instance=ExtResource( 6 )]
 position = Vector2( 0, -34 )
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 7 )
+texture_scale = 0.1
+energy = 0.5
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 

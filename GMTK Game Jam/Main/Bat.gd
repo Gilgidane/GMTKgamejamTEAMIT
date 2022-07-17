@@ -48,7 +48,7 @@ func seek_player():
 		state = CHASE
 
 func _on_Hurtbox_area_entered(area):
-	current_health -= 1
+	current_health -= 5
 	$HealthBar.update_healthbar(current_health)
 	if current_health <= 0:
 		queue_free()
