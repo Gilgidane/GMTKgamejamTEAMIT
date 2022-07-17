@@ -18,4 +18,6 @@ func _physics_process(delta):
 		
 func _on_PlayerDetection_body_entered(body):
 	if body.name == "Player":
+		PlayerStats.coins += 1
+		print(PlayerStats.coins)
 		coin.queue_free()
