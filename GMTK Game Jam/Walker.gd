@@ -1,7 +1,6 @@
 extends Node
 class_name Walker
 
-const Enemy = preload("res://Main/Bat.tscn")
 const DIRECTIONS = [Vector2.LEFT/3, Vector2.RIGHT, Vector2.UP/4, Vector2.DOWN/2.5, Vector2.LEFT, Vector2.RIGHT]
 
 var position = Vector2.ZERO
@@ -10,8 +9,6 @@ var borders = Rect2()
 var step_history = []
 var steps_since_turn = 0
 var rooms = []
-
-signal room_created
 
 func _init(starting_position, new_borders):
 	assert(new_borders.has_point(starting_position))
@@ -24,6 +21,7 @@ func walk(steps):
 	for step in steps:
 		if randf() <= 0.25 or steps_since_turn >= 6:
 			change_direction()
+		
 		if step():
 			step_history.append(position)
 		else:
@@ -52,9 +50,7 @@ func change_direction():
 func create_room(position, size):
 	return {position = position, size = size}
 
-
 func place_room(position):
-	generate_enemy(position)
 	var size = Vector2(randi() % 8 + 2, randi() % 3 + 2)
 	var top_left_corner = (position - size/2).ceil()
 	rooms.append(create_room(position, size))
@@ -64,17 +60,6 @@ func place_room(position):
 			if borders.has_point(new_step):
 				step_history.append(new_step)
 
-
-func current_room():
-	var current_room = rooms.pop_front()
-	var starting_position = step_history.front()
-	return current_room
-
-func generate_enemy(position):
-	var enemy = Enemy.instance()
-	add_child(enemy)
-	enemy.position = position*32
-	
 func get_end_room():
 	var end_room = rooms.pop_front()
 	var starting_position = step_history.front()
