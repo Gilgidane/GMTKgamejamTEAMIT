@@ -5,7 +5,8 @@
 [ext_resource path="res://Resources/Sprites/Slime.png" type="Texture" id=3]
 [ext_resource path="res://Main/PlayerDetectionZone.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Hitboxes and Hurtboxes/Hitbox.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Resources/light.png" type="Texture" id=6]
+[ext_resource path="res://HealthBar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Resources/light.png" type="Texture" id=7]
 
 [sub_resource type="CircleShape2D" id=9]
 radius = 245.051
@@ -61,7 +62,7 @@ shape = SubResource( 9 )
 position = Vector2( 0, -16 )
 frames = SubResource( 6 )
 animation = "New Anim"
-frame = 2
+frame = 3
 speed_scale = 2.0
 playing = true
 
@@ -85,10 +86,12 @@ collision_mask = 32
 position = Vector2( -1, -7 )
 shape = SubResource( 10 )
 
+[node name="HealthBar" parent="." instance=ExtResource( 6 )]
+position = Vector2( -1, -24 )
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( -1, -5 )
 scale = Vector2( 0.441406, 0.480469 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 texture_scale = 0.1
 energy = 0.5
 

@@ -3,6 +3,8 @@ extends KinematicBody2D
 export var ACCELERATION = 300
 export var MAX_SPEED = 50
 export var FRICTION = 200
+var max_health = 20
+var current_health = 20
 export var GRAVITY = 5000
 
 enum{
@@ -16,6 +18,9 @@ var state = IDLE
 
 onready var playerDetectionZone = $PlayerDetectionZone
 onready var sprite = $AnimatedSprite
+
+func _ready():
+	$HealthBar.scale = Vector2(0.08, 0.05)
 
 func _physics_process(delta):
 	match state:
@@ -40,4 +45,7 @@ func seek_player():
 		state = CHASE
 
 func _on_Hurtbox_area_entered(area):
-	queue_free()
+	current_health -= 5
+	$HealthBar.update_healthbar(current_health)
+	if current_health <= 0:
+		queue_free()
